@@ -1,4 +1,4 @@
-# Template Node.js Server
+# Tresga Node.js Server
 
 ![Node.js Logo](https://nodejs.org/static/images/logo.svg)
 

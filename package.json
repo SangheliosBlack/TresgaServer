@@ -1,7 +1,7 @@
 {
-  "name": "server-template",
+  "name": "tresga-server",
   "version": "1.0.0",
-  "description": "Server Template NodeJs",
+  "description": "Tresga Server NodeJs",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
