@@ -56,7 +56,7 @@ El proyecto sigue una estructura organizada para facilitar la comprensión y man
 - **/routes:** Definición de rutas de la API.
   - `autentificacion.js`: Rutas relacionadas con la autenticación.
   - `usuarios.js`: Rutas relacionadas con los usuarios.
-  - `tramites.js`: Rutas relacionadas con los trámites.
+  - `vales.js`: Rutas relacionadas con los vales.
   
 - **/config:** Configuraciones adicionales.
   - `authentication.js`: Configuración de autenticación utilizando Passport.

@@ -2,7 +2,19 @@ const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
 
 const UserSchema = Schema({
+    favorites:{
+        type: Array,
+        require: true
+    },
+    privileges:{
+        type: Array,
+        require: true
+    },
     name: {
+        type: String,
+        required: true
+    },
+    password: {
         type: String,
         required: true
     },
@@ -10,10 +22,6 @@ const UserSchema = Schema({
         type: String,
         required: true,
         unique: true
-    },
-    password: {
-        type: String,
-        required: true
     },
     phone: {
         type: String,
@@ -23,6 +31,10 @@ const UserSchema = Schema({
     last_login_date:{
         type: Date,
         required:false
+    },
+    position:{
+        type: String,
+        require: true
     },
     role:{
         type:String,

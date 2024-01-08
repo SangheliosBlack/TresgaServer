@@ -51,6 +51,8 @@ const controller = {
       user.name = newName;
       user.email = email.toLowerCase();
       user.phone = phone;
+      user.privileges = [];
+      user.favorites = [];
 
       await user.save();
 
