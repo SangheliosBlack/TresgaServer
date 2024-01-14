@@ -37,7 +37,7 @@ class Server {
 
             auth:'/auth',
             usuario:'/usuario',
-            vales:'vales'
+            vales:'/vales'
 
         }
 
@@ -94,7 +94,7 @@ class Server {
 
       this.app.use(`${this.apiVersion}${this.paths.auth}`,       require('./routes/autentificacion'));
       this.app.use(`${this.apiVersion}${this.paths.usuario}`,    require('./routes/usuarios'));
-      this.app.use(`${this.apiVersion}${this.paths.usuario}`,    require('./routes/vales'));
+      this.app.use(`${this.apiVersion}${this.paths.vales}`,    require('./routes/vales'));
 
       this.app.all('*', (req, res, next) => {
         next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
