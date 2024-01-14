@@ -37,7 +37,14 @@ class Server {
 
             auth:'/auth',
             usuario:'/usuario',
-            vales:'/vales'
+            vales:'/vales',
+            unidades:'/unidades',
+            tanques:'/tanques',
+            rutas: '/rutas',
+            puntos_recoleccion : '/puntos_recoleccion',
+            puntos_descarga : '/puntos_descarga',
+            empleados: '/empleados',
+            clientes: '/clientes'
 
         }
 
@@ -95,6 +102,13 @@ class Server {
       this.app.use(`${this.apiVersion}${this.paths.auth}`,       require('./routes/autentificacion'));
       this.app.use(`${this.apiVersion}${this.paths.usuario}`,    require('./routes/usuarios'));
       this.app.use(`${this.apiVersion}${this.paths.vales}`,    require('./routes/vales'));
+      this.app.use(`${this.apiVersion}${this.paths.unidades}`,    require('./routes/unidades'));
+      this.app.use(`${this.apiVersion}${this.paths.tanques}`,    require('./routes/tanques'));
+      this.app.use(`${this.apiVersion}${this.paths.rutas}`,    require('./routes/rutas'));
+      this.app.use(`${this.apiVersion}${this.paths.puntos_recoleccion}`,    require('./routes/puntosRecoleccion'));
+      this.app.use(`${this.apiVersion}${this.paths.puntos_descarga}`,    require('./routes/puntosDescarga'));
+      this.app.use(`${this.apiVersion}${this.paths.empleados}`,    require('./routes/empleados'));
+      this.app.use(`${this.apiVersion}${this.paths.clientes}`,    require('./routes/clientes'));
 
       this.app.all('*', (req, res, next) => {
         next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));

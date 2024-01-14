@@ -1,6 +1,7 @@
 const { validarJWT } = require('../middlewares/validar-jwt');
-const controller = require('../controllers/usuarios');
+const controller = require('../controllers/usuariosController');
 const {Router} = require('express');
+
 
 const upload = require("../utils/multer");
 
