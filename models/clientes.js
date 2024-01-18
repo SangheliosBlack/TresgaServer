@@ -3,7 +3,7 @@
 const mongoose = require("mongoose");
 const { Schema, model } = mongoose;
 
-const ClienteSchema = Schema({
+const Cliente_Schema = Schema({
     nombre: {
         type: String,
         required: true
@@ -14,7 +14,7 @@ const ClienteSchema = Schema({
     },
     dom_2: {
         type: String,
-        require: false
+        required: false
     },
     rfc: {
         type: String,
@@ -36,4 +36,14 @@ const ClienteSchema = Schema({
     timestamps: true
 });
 
-module.exports = model("Cliente", ClienteSchema);
+Cliente_Schema.statics.getFieldsInfo = function () {
+    return Object.keys(this.schema.paths)
+        .map(field => ({
+            name: field,
+            properties: this.schema.paths[field]
+        }));
+};
+
+const Cliente = model("clientes", Cliente_Schema);
+
+module.exports = Cliente;

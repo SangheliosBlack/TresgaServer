@@ -3,7 +3,7 @@
 const mongoose = require("mongoose");
 const { Schema, model } = mongoose;
 
-const EmpleadoSchema = Schema({
+const Empleado_Schema = Schema({
     nombre: {
         type: String,
         required: true
@@ -40,4 +40,16 @@ const EmpleadoSchema = Schema({
     timestamps: true
 });
 
-module.exports = model("Empleado", EmpleadoSchema);
+
+Empleado_Schema.statics.getFieldsInfo = function () {
+    return Object.keys(this.schema.paths)
+        .map(field => ({
+            name: field,
+            properties: this.schema.paths[field]
+        }));
+};
+
+const Empleado = model("empleados", Empleado_Schema);
+
+module.exports = Empleado;
+

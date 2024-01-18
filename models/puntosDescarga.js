@@ -1,9 +1,6 @@
-"use strict";
-
 const mongoose = require("mongoose");
 const { Schema, model } = mongoose;
-
-const PuntosDescargaSchema = Schema({
+const Puntos_Descarga_Schema = Schema({
     destino: {
         type: String,
         required: true
@@ -24,4 +21,14 @@ const PuntosDescargaSchema = Schema({
     timestamps: true
 });
 
-module.exports = model("Puntos_Descarga", PuntosDescargaSchema);
+Puntos_Descarga_Schema.statics.getFieldsInfo = function () {
+    return Object.keys(this.schema.paths)
+        .map(field => ({
+            name: field,
+            properties: this.schema.paths[field]
+        }));
+};
+
+const Punto_Descarga = model("puntos_descarga", Puntos_Descarga_Schema);
+
+module.exports = Punto_Descarga;

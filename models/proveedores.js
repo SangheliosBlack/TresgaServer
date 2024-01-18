@@ -1,9 +1,6 @@
-"use strict";
-
 const mongoose = require("mongoose");
 const { Schema, model } = mongoose;
-
-const ProveedorSchema = Schema({
+const Proveedores_Schema = Schema({
     nombre: {
         type: String,
         required: false
@@ -44,4 +41,14 @@ const ProveedorSchema = Schema({
     timestamps: true
 });
 
-module.exports = mongoose.model("proveedores", ProveedorSchema);
+Proveedores_Schema.statics.getFieldsInfo = function () {
+    return Object.keys(this.schema.paths)
+        .map(field => ({
+            name: field,
+            properties: this.schema.paths[field]
+        }));
+};
+
+const Proveedor = model("proveedores", Proveedores_Schema);
+
+module.exports = Proveedor;

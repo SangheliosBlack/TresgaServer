@@ -1,5 +1,4 @@
 const {dbConnection} = require('./database/config');
-const swaggerOptions = require('./utils/swagger_config');
 const corsOptions = require('./utils/cors_config');
 const compression = require('compression');
 const express = require('express');
@@ -12,6 +11,10 @@ const passport = require('passport');
 const expressWinston = require('express-winston')
 const xss = require('xss-clean')
 const trim_json_values = require('./utils/trim_json_values');
+
+const swaggerOptions = require('./utils/swagger_config');
+const swaggerUi = require('swagger-ui-express');
+const swaggerJsdoc = require('swagger-jsdoc');
 
 const AppError = require('./utils/appError');
 const logger = require('./helpers/logger');
@@ -67,8 +70,12 @@ class Server {
       this.setupSecurity();
       this.setupCors();
 
-      const expressSwagger = require('express-swagger-generator')(this.app);
-      expressSwagger(swaggerOptions.options);
+      this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerJsdoc(swaggerOptions.options,)));
+
+      this.app.get('/api-docs.json',(req,res)=>{
+        res.setHeader('Content-Type','application/json');
+        res.send(swaggerJsdoc(swaggerOptions.options));
+      });
 
       this.app.use(express.static(path.resolve(__dirname,'public')));
       this.app.use(bodyParser.json(),trim_json_values);

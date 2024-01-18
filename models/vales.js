@@ -1,9 +1,7 @@
-"use strict";
-
 const mongoose = require("mongoose");
 const { Schema, model } = mongoose;
 
-const ValeSchema = Schema({
+const Vale_Schema = Schema({
     folio: {
         type: String,
         required: true
@@ -28,7 +26,7 @@ const ValeSchema = Schema({
     timestamps: true
 });
 
-ValeSchema.statics.actualizarVale = async function(valeId) {
+Vale_Schema.statics.actualizarVale = async function(valeId) {
     try {
         const valeActualizado = await this.findByIdAndUpdate(
             valeId,
@@ -46,7 +44,7 @@ ValeSchema.statics.actualizarVale = async function(valeId) {
     }
 };
 
-ValeSchema.statics.buscarVales = async function(producto, importe) {
+Vale_Schema.statics.buscarVales = async function(producto, importe) {
 
     const pipeline = [
         {
@@ -74,5 +72,15 @@ ValeSchema.statics.buscarVales = async function(producto, importe) {
     }
 };
 
+Vale_Schema.statics.getFieldsInfo = function () {
+    return Object.keys(this.schema.paths)
+        .map(field => ({
+            name: field,
+            properties: this.schema.paths[field]
+        }));
+};
 
-module.exports = model("Vale", ValeSchema);
+const Vale = model("vales", Vale_Schema);
+
+module.exports = Vale;
+

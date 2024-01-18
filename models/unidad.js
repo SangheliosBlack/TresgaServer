@@ -1,9 +1,7 @@
-"use strict";
-
 const mongoose = require("mongoose");
 const { Schema, model } = mongoose;
 
-const UnidadSchema = Schema({
+const Unidad_Schema = Schema({
     unidad: {
         type: String,
         required: true
@@ -48,4 +46,14 @@ const UnidadSchema = Schema({
     timestamps: true
 });
 
-module.exports = model("Unidad", UnidadSchema);
+Unidad_Schema.statics.getFieldsInfo = function () {
+    return Object.keys(this.schema.paths)
+        .map(field => ({
+            name: field,
+            properties: this.schema.paths[field]
+        }));
+};
+
+const Unidad = model("unidades", Unidad_Schema);
+
+module.exports = Unidad;

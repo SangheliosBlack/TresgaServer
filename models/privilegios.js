@@ -1,9 +1,7 @@
-"use strict";
+const mongoose = require("mongoose");
+const { Schema, model } = mongoose;
 
-var mongoose = require("mongoose");
-var Schema = mongoose.Schema;
-
-var PrivilegiosSchema = Schema({
+var Privilegios_Schema = Schema({
     seccion: {
         type: String,
         required: true
@@ -14,4 +12,16 @@ var PrivilegiosSchema = Schema({
     }
 });
 
-module.exports = mongoose.model("privilegios", PrivilegiosSchema);
+Privilegios_Schema.statics.getFieldsInfo = function () {
+    return Object.keys(this.schema.paths)
+        .map(field => ({
+            name: field,
+            properties: this.schema.paths[field]
+        }));
+};
+
+const Privilegio = model("privilegios", Privilegios_Schema);
+
+
+module.exports = Privilegio;
+

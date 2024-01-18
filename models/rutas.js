@@ -1,9 +1,7 @@
-"use strict";
-
 const mongoose = require("mongoose");
-const { Schema, model } = mongoose;
+const { Schema, model } = mongoose
 
-const RutaSchema = Schema({
+const Ruta_Schema = Schema({
     codigo: {
         type: String,
         required: true
@@ -44,4 +42,15 @@ const RutaSchema = Schema({
     timestamps: true
 });
 
-module.exports = model("Ruta", RutaSchema);
+Ruta_Schema.statics.getFieldsInfo = function () {
+    console.log("HOLA");
+    return Object.keys(this.schema.paths)
+        .map(field => ({
+            name: field,
+            properties: this.schema.paths[field]
+        }));
+};
+
+const Ruta = model("rutas", Ruta_Schema);
+
+module.exports = Ruta;

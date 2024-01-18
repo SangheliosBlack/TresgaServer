@@ -1,7 +1,7 @@
-var mongoose = require("mongoose");
-var Schema = mongoose.Schema;
+const mongoose = require("mongoose");
+const { Schema, model } = mongoose;
 
-var FletesSchema = Schema({
+var Fletes_Schema = Schema({
     properties: {
         no_orden: {
             type: String,
@@ -110,4 +110,14 @@ var FletesSchema = Schema({
     }
 });
 
-module.exports = mongoose.model("fletes", FletesSchema);
+Fletes_Schema.statics.getFieldsInfo = function () {
+    return Object.keys(this.schema.paths)
+        .map(field => ({
+            name: field,
+            properties: this.schema.paths[field]
+        }));
+};
+
+const Flete = model("fletes", Fletes_Schema);
+
+module.exports = Flete;

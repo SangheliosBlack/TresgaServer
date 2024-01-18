@@ -1,9 +1,6 @@
-"use strict";
-
 const mongoose = require("mongoose");
 const { Schema, model } = mongoose;
-
-const TanqueSchema = Schema({
+const Tanque_Schema = Schema({
     unidad: {
         type: String,
         required: true
@@ -44,4 +41,15 @@ const TanqueSchema = Schema({
     timestamps: true
 });
 
-module.exports = model("Tanque", TanqueSchema);
+Tanque_Schema.statics.getFieldsInfo = function () {
+    return Object.keys(this.schema.paths)
+        .map(field => ({
+            name: field,
+            properties: this.schema.paths[field]
+        }));
+};
+
+const Tanque = model("tanques", Tanque_Schema);
+
+module.exports = Tanque;
+

@@ -1,7 +1,7 @@
-const { Schema, model } = require('mongoose');
-const bcrypt = require('bcrypt');
+const mongoose = require("mongoose");
+const { Schema, model } = mongoose;
 
-const UserSchema = Schema({
+const User_Schema = Schema({
     favorites:{
         type: Array,
         require: true
@@ -44,17 +44,18 @@ const UserSchema = Schema({
     timestamps: true
 });
 
-UserSchema.methods.toJSON = function () {
+User_Schema.methods.toJSON = function () {
     const { __v, _id, password, ...object } = this.toObject();
     object.uid = _id;
     return object;
 };
 
-UserSchema.methods.validatePassword = async function (password) {
+User_Schema.methods.validatePassword = async function (password) {
     return await bcrypt.compare(password, this.password);
 };
 
-UserSchema.pre('save', async function (next) {
+
+User_Schema.pre('save', async function (next) {
     const user = this;
     if (!user.isModified('password')) return next();
 
@@ -68,4 +69,14 @@ UserSchema.pre('save', async function (next) {
     }
 });
 
-module.exports = model('User', UserSchema);
+User_Schema.statics.getFieldsInfo = function () {
+    return Object.keys(this.schema.paths)
+        .map(field => ({
+            name: field,
+            properties: this.schema.paths[field]
+        }));
+};
+
+const User = model('users',User_Schema);
+
+module.exports = User;

@@ -1,7 +1,7 @@
 "use strict";
 
 var mongoose = require("mongoose");
-var Schema = mongoose.Schema;
+const { Schema, model } = mongoose;
 
 var Factura_Schema = Schema({
     folio: {
@@ -124,4 +124,16 @@ var Factura_Schema = Schema({
     }
 });
 
-module.exports = mongoose.model("facturas", Factura_Schema);
+Factura_Schema.statics.getFieldsInfo = function () {
+    return Object.keys(this.schema.paths)
+        .map(field => ({
+            name: field,
+            properties: this.schema.paths[field]
+        }));
+};
+
+const Factura = model("facturas", Factura_Schema);
+
+module.exports = Factura;
+
+

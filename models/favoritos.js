@@ -1,9 +1,9 @@
 "use strict";
 
-var mongoose = require("mongoose");
-var Schema = mongoose.Schema;
+const mongoose = require("mongoose");
+const { Schema, model } = mongoose;
 
-var FavoritosSchema = Schema({
+var Favorito_Schema = Schema({
     titulo: {
         type: String,
         required: true
@@ -17,5 +17,14 @@ var FavoritosSchema = Schema({
         required: true
     }
 });
+Favorito_Schema.statics.getFieldsInfo = function () {
+    return Object.keys(this.schema.paths)
+        .map(field => ({
+            name: field,
+            properties: this.schema.paths[field]
+        }));
+};
 
-module.exports = mongoose.model("favoritos", FavoritosSchema);
+const Favorito = model("favoritos", Favorito_Schema);
+
+module.exports = Favorito;
